@@ -7,7 +7,7 @@ public class Player {
    * player ID
    * @param id - The ID given to the player */
   public Player( int id ) {
-    this.playerID = id;
+    this.playerId = id;
   }
   
   /* Get the player's value 
