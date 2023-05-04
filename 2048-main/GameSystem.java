@@ -52,6 +52,7 @@ public class GameSystem {
      //Add two players with IDs 0 and 1 respectively
      this.allPlayer[0] = new Player(0);
      this.allPlayer[1] =new Player(1);
+     //player 0 will always be the first player
      SetCurrPlayer(0);
    }
    
@@ -451,7 +452,9 @@ public int moveRight() {
    /* Check if the grid is full or not
     * @return - True if the grid has no more empty blocks
     *           False otherwise. */
+   //Implemented if there are any valid moves. Because even if the grid is full, there may be some valid moves
    public boolean IsGridFull() {
+    boolean availableMoves = !checkAdjacentBlocks(); //availableMoves will be false if there are valid moves
       for (int i=0; i<grid.length;i++)
       {
          for (int j=0;j<grid[i].length;j++)
@@ -466,6 +469,6 @@ public int moveRight() {
             }
          }
       }
-      return true;
+      return (true & availableMoves); //return true only if no move available and no more free spaces in the grid
    }
 }

@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Main2048 {
   public static void main(String[] args){
-    GameSystem gs= new GameSystem(2048,3000,5,5);
+    GameSystem gs= new GameSystem();
     Displayer disp = new Displayer();
     char direction;
     int points=1;
@@ -79,10 +79,80 @@ public class Main2048 {
           }
         }
         //Game over,
-        continue;
+        break;
         case 2: 
-        System.out.print("");//ask grid width,length, winningblk,winningval
+        System.out.println("Enter winning block: ");
+        int winningblk = input.nextInt();
+        System.out.println("Enter winning value: ");
+        int winningval = input.nextInt();
+        System.out.println("Enter grid height: ");
+        int row = input.nextInt();
+        System.out.println("Enter gird width: ");
+        int col = input.nextInt();
+        gs = new GameSystem(winningblk,winningval,row,col);
+
+        Scanner input2= new Scanner(System.in);
+        System.out.println("DIRECTION GUIDE:");
+        System.out.println("  a - left");
+        System.out.println("  w - up");
+        System.out.println("  d - right");
+        System.out.println("  s - down");
+        disp.PrintGrid(gs.GetGrid());
+        disp.PrintScores(gs.GetPlayer(0),gs.GetPlayer(1));
         //same while loop
+                while (gs.IsGridFull()==false || gs.CheckWinner()==false)
+        {
+          System.out.print("Player "+gs.GetCurrPlayer().GetId()+" turn: ");
+          direction=input2.nextLine().charAt(0);
+          switch (direction){
+            case 'w':
+            // move up
+            gs.Move(1);
+            disp.PrintGrid(gs.GetGrid());
+            disp.PrintScores(gs.GetPlayer(0),gs.GetPlayer(1));
+            if(gs.IsGridFull()==true || gs.CheckWinner()==true)
+            { 
+              System.out.println(" w if");
+              break;
+            }
+            continue;
+            case 'a':
+            //move left
+            gs.Move(2);
+            disp.PrintGrid(gs.GetGrid());
+            disp.PrintScores(gs.GetPlayer(0),gs.GetPlayer(1));
+            if(gs.IsGridFull()==true || gs.CheckWinner()==true)
+            {
+              break;
+            }
+            continue;
+
+            case 's':
+            //move down
+            gs.Move(3);
+            disp.PrintGrid(gs.GetGrid());
+            disp.PrintScores(gs.GetPlayer(0),gs.GetPlayer(1));
+            if(gs.IsGridFull()==true || gs.CheckWinner()==true)
+            {
+              break;
+            }
+            continue;
+
+            case 'd':
+            //move right
+            gs.Move(4);
+            disp.PrintGrid(gs.GetGrid());
+            disp.PrintScores(gs.GetPlayer(0),gs.GetPlayer(1));
+            if(gs.IsGridFull()==true || gs.CheckWinner()==true)
+            {
+              break;
+            }
+            continue;
+            default:
+            System.out.println("Invalid move");
+            continue;
+          }
+        }
       }
     }
   }
